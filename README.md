@@ -45,3 +45,8 @@ test-mvc-express/
 
 * Crear repositorio en git con github Desktop
   
+## Iniciar proyecto
+1. Clonar proyecto
+2. Instalar depencias ```npm install```
+3. Configurar variables de entorno en el archivo  ```.env ```
+4. Ejecutar  ```docker-compose up -d```
