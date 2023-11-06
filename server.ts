@@ -7,7 +7,6 @@ dotenv.config();
 const app = express();
 
 //Configurar EJS
-
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'src/views'));
 
