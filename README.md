@@ -56,3 +56,7 @@ test-mvc-express/
 1. ```npm install typeorm --save```
 2. ```npm install reflect-metadata --save```
 3. ```npm install mysql2 --save```
+
+### Sessions
+```npm install express-session cookie-parser```
+```npm i --save-dev @types/express-session @types/cookie-parser ```
