@@ -8,6 +8,7 @@ import noticiasRoutes from './src/routes/noticia.routes';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import authRoutes from './src/routes/auth.routes';
+import expressLayouts from 'express-ejs-layouts';
 
 const app = express();
 dbcontext
@@ -30,11 +31,14 @@ app.use(
 
 //Configurar EJS
 app.set('view engine', 'ejs');
+app.use(expressLayouts);
 app.set('views', path.join(__dirname, 'src/views'));
+app.set('layout', path.join(__dirname, 'src/views/shared/layout'));
 
 const port = process.env.PORT || 3000;
 
 app.use('/noticias', noticiasRoutes);
+
 app.use('/auth', authRoutes);
 
 app.listen(port, () => {
