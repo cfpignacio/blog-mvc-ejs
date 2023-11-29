@@ -11,6 +11,8 @@ import authRoutes from './src/routes/auth.routes';
 import expressLayouts from 'express-ejs-layouts';
 
 const app = express();
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 dbcontext
 	.initialize()
 	.then(() => {})
