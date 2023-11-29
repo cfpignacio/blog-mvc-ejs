@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import express from 'express';
+import express, { Request, Response } from 'express';
 import path from 'path';
 import { dbcontext } from './src/db/dbcontext';
 import { TypeORMError } from 'typeorm';
@@ -9,10 +9,13 @@ import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import authRoutes from './src/routes/auth.routes';
 import expressLayouts from 'express-ejs-layouts';
+import { noticiasIndex } from './src/controllers/noticia.controller';
 
 const app = express();
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
 dbcontext
 	.initialize()
 	.then(() => {})
@@ -38,11 +41,13 @@ app.set('views', path.join(__dirname, 'src/views'));
 app.set('layout', path.join(__dirname, 'src/views/shared/layout'));
 
 const port = process.env.PORT || 3000;
+// default route
 
 app.use('/noticias', noticiasRoutes);
-
 app.use('/auth', authRoutes);
-
+app.use('/', (req: Request, res: Response) => {
+	res.redirect('/noticias');
+});
 app.listen(port, () => {
 	console.log(`Servidor Express funcionando en http://localhost:${port} 🚀✅`);
 });

@@ -17,6 +17,12 @@ export const crearNoticiaView = (req: Request, res: Response) => {
 export const crearNoticia = (req: Request, res: Response) => {
 	const data: Inoticias_create = req.body;
 
+	if (data.titulo_noticia.trim() === '' || data.desc_noticia.trim() === '') {
+		res.render('shared/error');
+	}
+
+	// TODO: GUARDO EN LA BASE DE DATOS
+
 	console.log(data);
 
 	res.redirect('/noticias');

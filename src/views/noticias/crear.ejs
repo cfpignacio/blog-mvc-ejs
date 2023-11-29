@@ -1,4 +1,6 @@
 <div id="formulario-crear-noticia">
+
+
     <form name="noticia" action="/noticias/crear" method="POST">
         <div class="mb-3">
             <label for="titulo_noticia" class="form-label">Titulo</label>
@@ -6,8 +8,10 @@
         </div>
         <div class="mb-3">
             <label for="desc_noticia" class="form-label">Descripcion</label>
-            <input type="text" class="form-control" name="desc_noticia">
+            <textarea type="text" class="form-control" name="desc_noticia"></textarea>
         </div>
         <button type="submit" class="btn btn-primary">Guardar</button>
     </form>
+
+
 </div>
