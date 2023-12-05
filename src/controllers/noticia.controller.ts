@@ -43,3 +43,12 @@ export const crearNoticia = async (req: Request, res: Response) => {
 		res.status(500).render('shared/error');
 	}
 };
+
+export const getNoticiaById = async (req: Request, res: Response) => {
+	console.log(req.params);
+	const noticiaRepository = dbcontext.getRepository(Noticia);
+	const noticia = await noticiaRepository.findOneBy({
+		id: req.params.idNoticia,
+	});
+	res.send({ noticia });
+};
