@@ -1,6 +1,7 @@
 import {
 	Column,
 	CreateDateColumn,
+	DeleteDateColumn,
 	Entity,
 	ManyToOne,
 	OneToMany,
@@ -18,7 +19,7 @@ export class Noticia {
 	@Column()
 	titulo: string;
 
-	@Column()
+	@Column({ length: 300 })
 	contenido: string;
 
 	@CreateDateColumn()
@@ -30,6 +31,6 @@ export class Noticia {
 	@OneToMany(() => Comentario, (c) => c.noticia)
 	comentarios: Comentario[];
 
-	@ManyToOne(() => Usuarios, (u) => u.noticias, { nullable: false })
+	@ManyToOne(() => Usuarios, (u) => u.noticias, { nullable: true })
 	usuario: Usuarios;
 }

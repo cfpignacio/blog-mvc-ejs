@@ -41,13 +41,15 @@ app.set('views', path.join(__dirname, 'src/views'));
 app.set('layout', path.join(__dirname, 'src/views/shared/layout'));
 
 const port = process.env.PORT || 3000;
-// default route
 
 app.use('/noticias', noticiasRoutes);
 app.use('/auth', authRoutes);
+
+// default route
 app.use('/', (req: Request, res: Response) => {
 	res.redirect('/noticias');
 });
+
 app.listen(port, () => {
 	console.log(`Servidor Express funcionando en http://localhost:${port} 🚀✅`);
 });
