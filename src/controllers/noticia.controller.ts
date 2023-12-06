@@ -52,3 +52,39 @@ export const getNoticiaById = async (req: Request, res: Response) => {
 	});
 	res.send({ noticia });
 };
+export const editarNoticia = async (req: Request, res: Response) => {
+	try {
+		const noticiaRepository = dbcontext.getRepository(Noticia);
+		const noticia = await noticiaRepository.exist({
+			where: { id: req.params.idNoticia },
+		});
+		if (!noticia) {
+			res.render('shared/error');
+		}
+		const editNoticia: Inoticias_create = {
+			titulo: req.body.titulo,
+			contenido: req.body.contenido,
+		};
+		await noticiaRepository.update(req.params.idNoticia, editNoticia);
+
+		res.redirect('/noticias');
+	} catch (error) {
+		res.render('shared/error');
+	}
+};
+
+export const editarNoticiaView = async (req: Request, res: Response) => {
+	try {
+		const noticiaRepository = dbcontext.getRepository(Noticia);
+		const noticia = await noticiaRepository.findOne({
+			where: { id: req.params.idNoticia },
+		});
+		if (!noticia) {
+			res.render('shared/error');
+		}
+
+		res.render('noticias/editar', { noticia });
+	} catch (error) {
+		res.render('shared/error');
+	}
+};
