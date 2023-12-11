@@ -4,7 +4,7 @@ import {
 	Inoticias_create,
 	Inoticias_update,
 } from '../interfaces/noticias/noticias.interfaces';
-import { IsNull } from 'typeorm';
+import { IsNull, Not } from 'typeorm';
 import { dbcontext } from '../db/dbcontext';
 import { Noticia } from '../models/noticias.entity';
 
@@ -16,6 +16,7 @@ export const noticiasIndex = async (req: Request, res: Response) => {
 	const noticias = await noticiaRepository.find({
 		order: { create_at: 'DESC' },
 		take: 10,
+		where: { deleted_at: IsNull() },
 	});
 
 	res.render('home/index_view_noticias', { noticias });
@@ -98,7 +99,7 @@ export const listadoNoticias = async (req: Request, res: Response) => {
 
 	const noticias = await noticiaRepository.find({
 		order: { create_at: 'DESC' },
-		withDeleted: false,
+		withDeleted: true,
 	});
 
 	res.render('noticias/listado', { noticias });

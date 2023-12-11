@@ -15,7 +15,11 @@
                 <td>
                     <%= n.titulo %>
                 </td>
-                <td><a href="/noticias/editar/<%= n.id %>">✏</a><a href="/noticias/borrar/<%= n.id %>">🗑️</a></td>
+                <td><a href="/noticias/editar/<%= n.id %>">✏</a><a href="/noticias/borrar/<%= n.id %>">🗑️</a>
+                    <% if (n.deleted_at) { %>
+                        <a href="/noticias/restore/<%= n.id %>">♻</a>
+                        <% } %>
+                </td>
 
             </tr>
             <% }) %>
