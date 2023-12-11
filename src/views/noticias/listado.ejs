@@ -1,0 +1,24 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Titulo</th>
+            <th scope="col">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% noticias.forEach(n=> { %>
+            <tr>
+                <td>
+                    <%= n.id %>
+                </td>
+                <td>
+                    <%= n.titulo %>
+                </td>
+                <td><a href="/noticias/editar/<%= n.id %>">✏</a><a href="/noticias/borrar/<%= n.id %>">🗑️</a></td>
+
+            </tr>
+            <% }) %>
+
+    </tbody>
+</table>

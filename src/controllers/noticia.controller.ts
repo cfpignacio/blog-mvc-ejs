@@ -1,6 +1,9 @@
 import { Request, Response } from 'express';
 import logger from '../helpers/logger';
-import { Inoticias_create } from '../interfaces/noticias/noticias.interfaces';
+import {
+	Inoticias_create,
+	Inoticias_update,
+} from '../interfaces/noticias/noticias.interfaces';
 import { IsNull } from 'typeorm';
 import { dbcontext } from '../db/dbcontext';
 import { Noticia } from '../models/noticias.entity';
@@ -52,6 +55,7 @@ export const getNoticiaById = async (req: Request, res: Response) => {
 	});
 	res.send({ noticia });
 };
+
 export const editarNoticia = async (req: Request, res: Response) => {
 	try {
 		const noticiaRepository = dbcontext.getRepository(Noticia);
@@ -61,13 +65,13 @@ export const editarNoticia = async (req: Request, res: Response) => {
 		if (!noticia) {
 			res.render('shared/error');
 		}
-		const editNoticia: Inoticias_create = {
+		const editNoticia: Inoticias_update = {
 			titulo: req.body.titulo,
 			contenido: req.body.contenido,
 		};
 		await noticiaRepository.update(req.params.idNoticia, editNoticia);
 
-		res.redirect('/noticias');
+		res.redirect('/noticias/listado');
 	} catch (error) {
 		res.render('shared/error');
 	}
@@ -87,4 +91,27 @@ export const editarNoticiaView = async (req: Request, res: Response) => {
 	} catch (error) {
 		res.render('shared/error');
 	}
+};
+
+export const listadoNoticias = async (req: Request, res: Response) => {
+	const noticiaRepository = dbcontext.getRepository(Noticia);
+
+	const noticias = await noticiaRepository.find({
+		order: { create_at: 'DESC' },
+		withDeleted: false,
+	});
+
+	res.render('noticias/listado', { noticias });
+};
+
+export const borrarNoticia = async (req: Request, res: Response) => {
+	const noticiaRepository = dbcontext.getRepository(Noticia);
+	const noticia = await noticiaRepository.findOne({
+		where: { id: req.params.idNoticia },
+	});
+	if (!noticia) {
+		res.render('shared/error');
+	}
+	await noticiaRepository.softDelete(req.params.idNoticia);
+	res.redirect('/noticias/listado');
 };

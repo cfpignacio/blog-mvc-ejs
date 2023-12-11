@@ -28,6 +28,9 @@ export class Noticia {
 	@UpdateDateColumn()
 	updated_at: Date;
 
+	@DeleteDateColumn()
+	deleted_at: Date;
+
 	@OneToMany(() => Comentario, (c) => c.noticia)
 	comentarios: Comentario[];
 
