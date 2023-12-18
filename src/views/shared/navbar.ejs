@@ -5,18 +5,34 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-            <a class="navbar-brand" href="#">BP</a>
+            <a class="navbar-brand" href="#">Noticias APP 📒</a>
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="/noticias">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/noticias/crear">Crear Noticia</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/noticias/listado">Listado</a>
+                    <a class="nav-link" aria-current="page" href="/noticias">🏠 Home</a>
                 </li>
 
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        📃 Noticias
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/noticias/listado">Listado</a></li>
+                        <li><a class="dropdown-item" href="/noticias/crear">Crear</a></li>
+
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        🪪 Usuarios
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/usuario/listado">Listado</a></li>
+                        <li><a class="dropdown-item" href="/usuario/crear">Crear</a></li>
+
+                    </ul>
+                </li>
             </ul>
 
         </div>

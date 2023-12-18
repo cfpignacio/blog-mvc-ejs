@@ -31,6 +31,9 @@ export class Noticia {
 	@DeleteDateColumn()
 	deleted_at: Date;
 
+	@Column()
+	imagenURL: string;
+
 	@OneToMany(() => Comentario, (c) => c.noticia)
 	comentarios: Comentario[];
 

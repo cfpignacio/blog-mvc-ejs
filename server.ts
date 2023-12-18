@@ -45,6 +45,9 @@ const port = process.env.PORT || 3000;
 app.use('/noticias', noticiasRoutes);
 app.use('/auth', authRoutes);
 
+// static files
+app.use('/public', express.static('public'));
+
 // default route
 app.use('/', (req: Request, res: Response) => {
 	res.redirect('/noticias');

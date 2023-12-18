@@ -22,6 +22,7 @@ noticiasRoutes.get('/crear', crearNoticiaView);
 noticiasRoutes.post('/crear', crearNoticia);
 //editar
 noticiasRoutes.get('/editar/:idNoticia', editarNoticiaView);
+
 noticiasRoutes.post('/editar/:idNoticia', editarNoticia);
 
 //delete

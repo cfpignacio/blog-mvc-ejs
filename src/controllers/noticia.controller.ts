@@ -16,7 +16,7 @@ export const noticiasIndex = async (req: Request, res: Response) => {
 	const noticias = await noticiaRepository.find({
 		order: { create_at: 'DESC' },
 		take: 10,
-		where: { deleted_at: IsNull() },
+		withDeleted: false,
 	});
 
 	res.render('home/index_view_noticias', { noticias });
@@ -74,7 +74,7 @@ export const editarNoticia = async (req: Request, res: Response) => {
 
 		res.redirect('/noticias/listado');
 	} catch (error) {
-		res.render('shared/error');
+		res.render('shared/error', { msgError: 'Error al editarnoticia' });
 	}
 };
 
@@ -85,12 +85,14 @@ export const editarNoticiaView = async (req: Request, res: Response) => {
 			where: { id: req.params.idNoticia },
 		});
 		if (!noticia) {
-			res.render('shared/error');
+			res.render('shared/error', { msgError: 'La noticia no existe' });
 		}
 
 		res.render('noticias/editar', { noticia });
 	} catch (error) {
-		res.render('shared/error');
+		res.render('shared/error', {
+			msgError: 'La noticia no se puedo actulizar',
+		});
 	}
 };
 
@@ -101,7 +103,6 @@ export const listadoNoticias = async (req: Request, res: Response) => {
 		order: { create_at: 'DESC' },
 		withDeleted: true,
 	});
-
 	res.render('noticias/listado', { noticias });
 };
 
