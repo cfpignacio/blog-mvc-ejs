@@ -1,0 +1,61 @@
+<div class="container my-5">
+    <div class="row px-5 pb-0 py-lg-5 align-items-center rounded-3 border shadow-lg">
+        <div class="col-md-6">
+            <h2 class="fw-bold lh-1 text-body-emphasis mb-3"><i class="bi bi-person-lines-fill"></i> Listado de Usuarios
+            </h2>
+
+        </div>
+        <div class="col-md-6 text-end">
+            <a class="btn btn-primary" role="button" href="/usuarios/crear">Agregar</a>
+        </div>
+        <hr class="hr" />
+        <table class="table table-striped table-bordered mt-3">
+            <thead>
+                <tr>
+                    <th class="text-center" scope="col">Email</th>
+                    <th class="text-center" scope="col">Nombre</th>
+                    <th class="text-center" scope="col">Apellido</th>
+                    <th class="text-center" scope="col">Editar</th>
+                    <th class="text-center" scope="col">Eliminar</th>
+                    <th class="text-center" scope="col">Recuperar</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                <tr>
+                    <% usuarios.forEach(usuario=>{ %>
+                <tr class="">
+                    <th class="text-center align-middle" scope="row">
+                        <%= usuario.email %>
+                    </th>
+                    <td class="text-center align-middle">
+                        <%= usuario.nombre %>
+                    </td>
+                    <td class="text-center align-middle">
+                        <%= usuario.apellido %>
+                    </td>
+                    <td class="text-center align-middle">
+                        <% if (!usuario.delete_at) { %>
+                            <a role="button" class="btn btn-success" href="/usuarios/editar/<%= usuario.id %>"><i
+                                    class="fs-5 bi bi-pencil-fill"></i></a>
+                            <% } %>
+                    </td>
+                    <td class="text-center align-middle">
+                        <% if (!usuario.delete_at) { %>
+                            <a role="button" class="btn btn-danger" href="/usuarios/eliminar/<%= usuario.id %>"><i
+                                    class="fs-5 bi bi-trash3"></i></a>
+                            <% } %>
+                    </td>
+                    <td class="text-center align-middle">
+                        <a role="button" href="/usuarios/recuperar/<%= usuario.id %>">
+                            <% if (usuario.delete_at) { %>
+                                <i class="btn btn-secondary fs-5 bi bi-arrow-repeat"></i>
+                                <% } %>
+                        </a>
+                    </td>
+                </tr>
+                <% }); %>
+                    </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

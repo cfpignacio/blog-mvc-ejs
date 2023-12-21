@@ -7,23 +7,28 @@ import {
 import { IsNull, Not } from 'typeorm';
 import { dbcontext } from '../db/dbcontext';
 import { Noticia } from '../models/noticias.entity';
+import session from 'express-session';
 
 export const noticiasIndex = async (req: Request, res: Response) => {
 	// Aca devolver todas las noticias ordenadas por fecha
 	// ver documentacion de typeorm
 	const noticiaRepository = dbcontext.getRepository(Noticia);
-
+	const usuario = req.session?.user ?? '';
 	const noticias = await noticiaRepository.find({
 		order: { create_at: 'DESC' },
 		take: 10,
 		withDeleted: false,
 	});
 
-	res.render('home/index_view_noticias', { noticias });
+	res.render('home/index_view_noticias', {
+		noticias,
+		usuario,
+	});
 };
 
 export const crearNoticiaView = (req: Request, res: Response) => {
-	res.render('noticias/crear');
+	const usuario = req.body.usuario;
+	res.render('noticias/crear', { usuario });
 };
 
 export const crearNoticia = async (req: Request, res: Response) => {
@@ -35,7 +40,7 @@ export const crearNoticia = async (req: Request, res: Response) => {
 		}
 
 		const noticiaRepository = dbcontext.getRepository(Noticia);
-
+		console.log(req.body);
 		const noticia = noticiaRepository.create({
 			...data,
 		});
@@ -98,12 +103,12 @@ export const editarNoticiaView = async (req: Request, res: Response) => {
 
 export const listadoNoticias = async (req: Request, res: Response) => {
 	const noticiaRepository = dbcontext.getRepository(Noticia);
-
+	const usuario = req.body.usuario;
 	const noticias = await noticiaRepository.find({
 		order: { create_at: 'DESC' },
 		withDeleted: true,
 	});
-	res.render('noticias/listado', { noticias });
+	res.render('noticias/listado', { noticias, usuario });
 };
 
 export const borrarNoticia = async (req: Request, res: Response) => {

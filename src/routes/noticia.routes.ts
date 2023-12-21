@@ -9,6 +9,7 @@ import {
 	listadoNoticias,
 	borrarNoticia,
 } from '../controllers/noticia.controller';
+import { authMiddleware } from '../middlewares/auth.middleware';
 
 const noticiasRoutes = express.Router();
 
@@ -16,16 +17,16 @@ noticiasRoutes.get('/', noticiasIndex);
 noticiasRoutes.get('/by/:idNoticia', getNoticiaById);
 
 // Listado
-noticiasRoutes.get('/listado', listadoNoticias);
+noticiasRoutes.get('/listado', authMiddleware, listadoNoticias);
 //crear
-noticiasRoutes.get('/crear', crearNoticiaView);
-noticiasRoutes.post('/crear', crearNoticia);
+noticiasRoutes.get('/crear', authMiddleware, crearNoticiaView);
+noticiasRoutes.post('/crear', authMiddleware, crearNoticia);
 //editar
-noticiasRoutes.get('/editar/:idNoticia', editarNoticiaView);
+noticiasRoutes.get('/editar/:idNoticia', authMiddleware, editarNoticiaView);
 
-noticiasRoutes.post('/editar/:idNoticia', editarNoticia);
+noticiasRoutes.post('/editar/:idNoticia', authMiddleware, editarNoticia);
 
 //delete
-noticiasRoutes.get('/borrar/:idNoticia', borrarNoticia);
+noticiasRoutes.get('/borrar/:idNoticia', authMiddleware, borrarNoticia);
 
 export default noticiasRoutes;

@@ -10,6 +10,7 @@ import session from 'express-session';
 import authRoutes from './src/routes/auth.routes';
 import expressLayouts from 'express-ejs-layouts';
 import { noticiasIndex } from './src/controllers/noticia.controller';
+import usuariosRoutes from './src/routes/usuarios.routes';
 
 const app = express();
 
@@ -43,6 +44,7 @@ app.set('layout', path.join(__dirname, 'src/views/shared/layout'));
 const port = process.env.PORT || 3000;
 
 app.use('/noticias', noticiasRoutes);
+app.use('/usuarios', usuariosRoutes);
 app.use('/auth', authRoutes);
 
 // static files

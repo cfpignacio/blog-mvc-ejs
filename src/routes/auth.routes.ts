@@ -1,6 +1,7 @@
 import express from 'express';
 import {
 	loginController,
+	loginControllerView,
 	logoutController,
 	quiensoyController,
 } from '../controllers/auth.controller';
@@ -8,7 +9,8 @@ import {
 const authRoutes = express.Router();
 
 // rutas de ejemplo de sessiones
-authRoutes.get('/login', loginController);
+authRoutes.get('/login', loginControllerView);
+authRoutes.post('/login', loginController);
 
 authRoutes.get('/quiensoy', quiensoyController);
 
