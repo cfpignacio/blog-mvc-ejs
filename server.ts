@@ -11,6 +11,7 @@ import authRoutes from './src/routes/auth.routes';
 import expressLayouts from 'express-ejs-layouts';
 import { noticiasIndex } from './src/controllers/noticia.controller';
 import usuariosRoutes from './src/routes/usuarios.routes';
+import { primerUsuario } from './src/controllers/usuario.controllers';
 
 const app = express();
 
@@ -19,7 +20,9 @@ app.use(express.json());
 
 dbcontext
 	.initialize()
-	.then(() => {})
+	.then(() => {
+		primerUsuario().then(() => {});
+	})
 	.catch((err: TypeORMError) => {
 		logger.error(`Error al iniciar la base de datos: ${err.message}`); // si hay error
 	});

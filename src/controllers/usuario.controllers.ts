@@ -7,6 +7,7 @@ import {
 	IUsuarios_create,
 	IUsuarios_update,
 } from '../interfaces/usuarios/usuarios.interfaces';
+import logger from '../helpers/logger';
 
 export const listadoUsuarios = async (req: Request, res: Response) => {
 	try {
@@ -149,5 +150,30 @@ export const recuperarUsuario = async (req: Request, res: Response) => {
 	} catch (error) {
 		console.log(error);
 		res.render('shared/error', { msgError: 'Error al recuperar el usuario' });
+	}
+};
+
+export const primerUsuario = async () => {
+	try {
+		const usuarioRepository = await dbcontext.getRepository(Usuarios);
+		const contarUsuarios = await usuarioRepository.find();
+
+		if (contarUsuarios.length <= 0) {
+			const usuarioDefault: IUsuarios_create = {
+				nombre: 'admin',
+				apellido: 'Default',
+				pass: '123456',
+				pass2: '123456',
+				email: 'admin@local.com',
+			};
+
+			const createUsuario = await usuarioRepository.create(usuarioDefault);
+			const saveUsuario = await usuarioRepository.save(createUsuario);
+			logger.info(
+				`Se creo el usuario : ${saveUsuario.nombre} ${saveUsuario.apellido} - ${saveUsuario.email}`
+			);
+		}
+	} catch (error) {
+		logger.error(error);
 	}
 };
